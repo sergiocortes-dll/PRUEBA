@@ -19,4 +19,11 @@ public class EmployeeRepository : Repository<Employee>, IEmployeeRepository
 
     public async Task<Employee?> GetByDocumentAsync(string document)
         => await _context.Employees.FirstOrDefaultAsync(e => e.Document == document);
+
+    public async Task<IEnumerable<Employee>> GetByDepartmentAsync(int departmentId)
+    {
+        return await _context.Employees
+            .Where(e => e.DepartmentId == departmentId)
+            .ToListAsync();
+    }
 }

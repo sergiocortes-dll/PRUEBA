@@ -11,6 +11,9 @@ public class ApplicationDbContext : DbContext
     
     public DbSet<Employee> Employees { get; set; }
     public DbSet<Department> Departments { get; set; }
+    public DbSet<JobTitle> JobTitles { get; set; }
+    public DbSet<EducationLevel> EducationLevels { get; set; }
+    public DbSet<ProfessionalProfile> ProfessionalProfiles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -23,6 +26,20 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.Document)
                 .IsRequired()
                 .HasMaxLength(20);
+            
+            entity.Property(e => e.BirthDate)
+                .HasColumnType("timestamp without time zone");
+            
+            entity.Property(e => e.HireDate)
+                .HasColumnType("timestamp without time zone");
+            
+            entity.Property(e => e.CreatedAt)
+                .HasColumnType("timestamp without time zone")
+                .HasDefaultValueSql("NOW()");
+            
+            entity.Property(e => e.ModifiedAt)
+                .HasColumnType("timestamp without time zone");
+
         });
 
         modelBuilder.Entity<Department>(entity =>
@@ -32,6 +49,41 @@ public class ApplicationDbContext : DbContext
             entity.Property(d => d.Name)
                 .IsRequired()
                 .HasMaxLength(100);
+            
+            entity.Property(d => d.CreatedAt)
+                .HasColumnType("timestamp without time zone")
+                .HasDefaultValueSql("NOW()");
+            
+            entity.Property(d => d.ModifiedAt)
+                .HasColumnType("timestamp without time zone");
         });
+        
+        modelBuilder.Entity<JobTitle>(entity =>
+        {
+            entity.HasKey(j => j.Id);
+            
+            entity.Property(j => j.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+        });
+        
+        modelBuilder.Entity<EducationLevel>(entity =>
+        {
+            entity.HasKey(el => el.Id);
+            
+            entity.Property(el => el.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+        });
+        
+        modelBuilder.Entity<ProfessionalProfile>(entity =>
+        {
+            entity.HasKey(pp => pp.Id);
+            
+            entity.Property(pp => pp.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+        });
+        
     }
 }

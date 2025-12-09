@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using TalentoPlus.Domain.Interfaces;
 using TalentoPlus.Infrastructure.Data;
 using TalentoPlus.Infrastructure.Repositories;
+using TalentoPlus.Infrastructure.Services;
 
 namespace TalentoPlus.Infrastructure;
 
@@ -20,7 +21,8 @@ public static class DependencyInjection
 
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-        
+
+        services.AddScoped<IExcelFileReader, ExcelFileReader>();
         return services;
     }
 }

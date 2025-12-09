@@ -1,15 +1,16 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using TalentoPlus.Domain.Interfaces;
+using TalentoPlus.Infrastructure.Data;
 
 namespace TalentoPlus.Infrastructure.Repositories;
 
 public class Repository<T> : IRepository<T> where T : class
 {
-    private readonly DbContext _context;
+    protected readonly ApplicationDbContext _context;
     private readonly DbSet<T> _dbSet;
 
-    public Repository(DbContext context)
+    public Repository(ApplicationDbContext context)
     {
         _context = context;
         _dbSet = context.Set<T>();
