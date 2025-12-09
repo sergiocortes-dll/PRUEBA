@@ -29,6 +29,33 @@ public class Employee : BaseEntity
     protected Employee()
     {
     }
+    
+    public Employee(
+        string document,
+        string name,
+        string surname,
+        DateTime birthDate,
+        string address,
+        string phone,
+        string email)
+    {
+        Document = document;
+        Name = name;
+        Surname = surname;
+        BirthDate = birthDate;
+        Address = address;
+        Phone = phone;
+        Email = email;
+
+        Status = EmployeeStatus.Active;
+        HireDate = DateTime.UtcNow;
+
+        ProfessionalProfile = string.Empty;
+
+        Validate();
+    }
+
+
 
     public Employee(
         string document,

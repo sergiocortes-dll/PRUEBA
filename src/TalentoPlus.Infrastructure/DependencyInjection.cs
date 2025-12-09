@@ -6,6 +6,7 @@ using TalentoPlus.Infrastructure.Data;
 using TalentoPlus.Infrastructure.Repositories;
 using TalentoPlus.Infrastructure.Services;
 
+
 namespace TalentoPlus.Infrastructure;
 
 public static class DependencyInjection
@@ -23,6 +24,16 @@ public static class DependencyInjection
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
         services.AddScoped<IExcelFileReader, ExcelFileReader>();
+        
+        services.AddScoped<IEmailSender, SmtpEmailSender>();
+        
+        services.AddScoped<IEmailRepository, EmailRepository>();
+        services.AddScoped<IEmailSender, SmtpEmailSender>();
+        
+        services.AddScoped<IPdfService, PdfService>();
+        
+        services.AddScoped<IAIService, AIService>();
+        
         return services;
     }
 }
