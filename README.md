@@ -9,3 +9,8 @@
 ```
 dotnet restore
 ```
+
+En la raiz del proyecto
+```
+dotnet run --project ./src/TalentoPlus.API/appsettin
+```
