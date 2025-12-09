@@ -1,6 +1,9 @@
+using TalentoPlus.Application;
 using TalentoPlus.Application.Services;
 using TalentoPlus.Infrastructure;
 using TalentoPlus.Infrastructure.Data;
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
 // Services
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();

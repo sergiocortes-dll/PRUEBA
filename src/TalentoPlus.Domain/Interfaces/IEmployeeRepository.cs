@@ -6,5 +6,5 @@ public interface IEmployeeRepository : IRepository<Employee>
 {
     Task<Employee?> GetByEmailAsync(string email);
     Task<Employee?> GetByDocumentAsync(string document);
-    // Task<IEnumerable<Employee>> GetByDepartmentAsync(int departmentId);
+    Task<IEnumerable<Employee>> GetByDepartmentAsync(int departmentId);
 }

@@ -1,6 +1,17 @@
+using Microsoft.Extensions.DependencyInjection;
+using TalentoPlus.Application.Interfaces;
+using TalentoPlus.Application.Services;
+
 namespace TalentoPlus.Application;
 
-public class DependencyInjection
+public static class DependencyInjection
 {
-    
+    public static IServiceCollection AddApplication(this IServiceCollection services)
+    {
+        // Registrar servicios de aplicación
+        services.AddScoped<IEmployeeService, EmployeeService>();
+        services.AddScoped<IExcelImportService, ExcelImportService>();
+        
+        return services;
+    }
 }

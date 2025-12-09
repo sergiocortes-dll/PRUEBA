@@ -8,6 +8,7 @@ public interface IEmployeeService
 {
     Task<EmployeeDto?> GetByIdAsync(int id);
     Task<IEnumerable<EmployeeDto>> GetAllAsync();
+    Task<IEnumerable<EmployeeDto>> GetByDepartmentAsync(int departmentId);
     Task<EmployeeDto> CreateAsync(CreateEmployeeDto dto);
     Task<bool> UpdateAsync(int id, CreateEmployeeDto dto);
     Task<bool> DeleteAsync(int id);
@@ -34,6 +35,13 @@ public class EmployeeService : IEmployeeService
         return employees.Select(MapToDto);
     }
 
+    public async Task<IEnumerable<EmployeeDto>> GetByDepartmentAsync(int departmentId)
+    {
+        var employees = await _repo.GetByDepartmentAsync(departmentId);
+
+        return employees.Select(MapToDto);
+    }
+
     public async Task<EmployeeDto> CreateAsync(CreateEmployeeDto dto)
     {
         var exists = await _repo.ExistsAsync(x => x.Document == dto.Document);
@@ -47,7 +55,13 @@ public class EmployeeService : IEmployeeService
             dto.BirthDate,
             dto.Address,
             dto.Phone,
-            dto.Email
+            dto.Email,
+            dto.Salary,
+            dto.HireDate,
+            dto.DepartmentId,
+            dto.JobTitleId,
+            dto.EducationLevelId,
+            dto.ProfessionalProfile
         );
 
         await _repo.AddAsync(employee);
@@ -74,6 +88,14 @@ public class EmployeeService : IEmployeeService
             dto.Address,
             dto.Phone,
             dto.Email
+        );
+        
+        employee.UpdateJobInfo(
+            dto.Salary,
+            dto.DepartmentId,
+            dto.JobTitleId,
+            dto.EducationLevelId,
+            dto.ProfessionalProfile
         );
         
         _repo.Update(employee);
