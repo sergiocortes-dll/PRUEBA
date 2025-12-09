@@ -14,7 +14,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<JobTitle> JobTitles { get; set; }
     public DbSet<EducationLevel> EducationLevels { get; set; }
     public DbSet<ProfessionalProfile> ProfessionalProfiles { get; set; }
-    public DbSet<Email> Emails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -84,16 +83,6 @@ public class ApplicationDbContext : DbContext
             entity.Property(pp => pp.Name)
                 .IsRequired()
                 .HasMaxLength(100);
-        });
-        
-        modelBuilder.Entity<Email>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-            entity.Property(e => e.From).IsRequired().HasMaxLength(255);
-            entity.Property(e => e.Subject).IsRequired().HasMaxLength(500);
-            entity.Property(e => e.Body).IsRequired();
-            entity.Property(e => e.Status).IsRequired();
-            entity.Property(e => e.CreatedAt).IsRequired();
         });
     }
 }

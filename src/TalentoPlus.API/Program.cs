@@ -4,21 +4,24 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using TalentoPlus.Application;
 using TalentoPlus.Application.Services;
+using TalentoPlus.Domain.Interfaces;
 using TalentoPlus.Infrastructure;
 using TalentoPlus.Infrastructure.Configuration;
 using TalentoPlus.Infrastructure.Data;
+using TalentoPlus.Infrastructure.Services;
 
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure EmailSettings
+builder.Services.Configure<EmailSettings>(
+    builder.Configuration.GetSection("EmailSettings"));
+
 // Add services to the container.
 
 builder.Services.AddControllers();
-
-// Services
-builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();

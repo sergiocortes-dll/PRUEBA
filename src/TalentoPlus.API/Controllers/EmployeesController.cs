@@ -11,12 +11,14 @@ namespace TalentoPlus.API.Controllers;
 public class EmployeesController : ControllerBase
 {
     private readonly IEmployeeService _service;
+    private readonly NotificationService _notificationService;
     private readonly ILogger<EmployeesController> _logger;
 
-    public EmployeesController(IEmployeeService service,  ILogger<EmployeesController> logger)
+    public EmployeesController(IEmployeeService service,  ILogger<EmployeesController> logger,  NotificationService notificationService)
     {
         _service = service;
         _logger = logger;
+        _notificationService = notificationService;
     }
     
     [HttpGet]
@@ -98,6 +100,10 @@ public class EmployeesController : ControllerBase
             }
             
             var employee = await _service.CreateAsync(dto);
+
+            await _notificationService.NotifyUserRegistrationAsync(
+                employee.Email,
+                employee.Name);
 
             return CreatedAtAction(
                 nameof(GetEmployee),

@@ -1,7 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using TalentoPlus.Application.Interfaces;
 using TalentoPlus.Application.Services;
-using TalentoPlus.Application.UseCases;
 
 namespace TalentoPlus.Application;
 
@@ -13,7 +12,7 @@ public static class DependencyInjection
         services.AddScoped<IEmployeeService, EmployeeService>();
         services.AddScoped<IExcelImportService, ExcelImportService>();
         
-        services.AddScoped<SendEmailUseCase>();
+        services.AddScoped<NotificationService>();
         
         return services;
     }

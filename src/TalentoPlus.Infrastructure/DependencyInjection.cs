@@ -20,18 +20,13 @@ public static class DependencyInjection
                 connectionString,
                 b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
-        services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+        
+        services.AddScoped<IEmailService, SmtpEmailService>();
 
         services.AddScoped<IExcelFileReader, ExcelFileReader>();
-        
-        services.AddScoped<IEmailSender, SmtpEmailSender>();
-        
-        services.AddScoped<IEmailRepository, EmailRepository>();
-        services.AddScoped<IEmailSender, SmtpEmailSender>();
-        
         services.AddScoped<IPdfService, PdfService>();
-        
         services.AddScoped<IAIService, AIService>();
         
         return services;

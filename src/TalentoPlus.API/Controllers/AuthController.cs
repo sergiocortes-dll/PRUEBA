@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using TalentoPlus.Application.Interfaces;
+using TalentoPlus.Application.Services;
 using TalentoPlus.Domain.Entities;
 using TalentoPlus.Domain.Interfaces;
 
@@ -14,18 +15,19 @@ namespace TalentoPlus.Api.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IConfiguration _configuration;
+    private readonly NotificationService  _notificationService;
     private readonly IEmployeeRepository _employeeRepository;
     // private readonly IEmailService _emailService;
 
     public AuthController(
         IConfiguration configuration,
-        IEmployeeRepository employeeRepository
-        //IEmailService emailService)
+        IEmployeeRepository employeeRepository,
+        NotificationService  notificationService
         )
     {
         _configuration = configuration;
         _employeeRepository = employeeRepository;
-        //_emailService = emailService;
+        _notificationService = notificationService;
     }
 
     [HttpPost("register")]
@@ -60,7 +62,11 @@ public class AuthController : ControllerBase
             );
             
             await _employeeRepository.AddAsync(employee);
-            await _employeeRepository.SaveChangesAsync();    
+            await _employeeRepository.SaveChangesAsync(); 
+            
+            await _notificationService.NotifyUserRegistrationAsync(
+                employee.Email,
+                employee.Name);
             
             return Ok(new
             {
