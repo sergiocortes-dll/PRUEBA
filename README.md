@@ -10,7 +10,38 @@
 dotnet restore
 ```
 
-En la raiz del proyecto
+### Agrega la cadena de conexion a `src/TalentoPlus.API/appsettings.json`
+
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=pg-5b7372-tekazp-72b8.j.aivencloud.com;Port=24308;Database=defaultdb;Username=avnadmin;Password=AVNS_tUvqwQ6t4oi4LHp2D7F"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "EmailSettings": {
+    "SmtpServer": "smtp.gmail.com",
+    "SmtpPort": 587,
+    "Username": "contacto.sergiocortes@gmail.com",
+    "Password": "lccy sjvm fdoc eipu",
+    "EnableSsl": true,
+    "FromEmail": "contacto.sergiocortes@gmail.com",
+    "FromName": "Talento Plus"
+  },
+  "Jwt": {
+    "Key": "mi_clave_secreta_muy_larga_para_jwt_2025_talento_plus"
+  }
+}
+```
+
+---
+
+### En la raiz del proyecto
 ```
 dotnet run --project ./src/TalentoPlus.API/appsettin
 ```
